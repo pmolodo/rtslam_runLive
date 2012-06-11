@@ -31,8 +31,6 @@ RENDERALL=0
 ROBOT=0
 VIEWS=1
 
-echo $REPLAY
-
 MODEL=
 #MODEL="@/cow.osg"
 MODEL="/DevProj/AR/rt-slam/jafar/src/modules/rtslam/data/models/MTi.osg"
