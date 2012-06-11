@@ -16,6 +16,7 @@ DISP="--disp-2d"
 
 # out of range index error at frame 195
 RSEED=1334429335
+#RSEED=0
 
 FREQ=100
 
@@ -33,12 +34,17 @@ VIEWS=1
 
 MODEL=
 #MODEL="@/cow.osg"
-MODEL="/DevProj/AR/rt-slam/jafar/src/modules/rtslam/data/models/MTi.osg"
+#MODEL="/DevProj/AR/rt-slam/jafar/src/modules/rtslam/data/models/MTi.osg"
 
 if [[ "$(uname -s)" == "Linux" ]]
 then
-    export RTSLAMBASE=/DevProj/AR/rt-slam
     ARCH_DIR=x86_64-linux-gnu
+    if [[ -d "/Volumes/sv-dev01/devRepo/paulm" ]]
+    then
+        export RTSLAMBASE=/Volumes/sv-dev01/devRepo/paulm/rt-slam
+    else
+        export RTSLAMBASE=/DevProj/AR/rt-slam
+    fi
 else
     export RTSLAMBASE=/Developer/Projects/rtslam
     ARCH_DIR=i386-darwin-gnu
@@ -73,13 +79,21 @@ then
         ROBOT=0
     fi
 else
-    DATAPATH=$JAFAR_BASE/captures
     PAUSE=0
-fi
 
-if (( $DUMP || $REPLAY_DUMP ))
-then
-    DATAPATH=$JAFAR_BASE/captures/runDump
+    if [[ -d "/mnt/ssd/AR/rt-slam.data/captures" ]]
+    then
+        CAPTURE_BASE=/mnt/ssd/AR/rt-slam.data/captures
+    else
+        CAPTURE_BASE=$JAFAR_BASE/captures
+    fi
+
+    if (( $DUMP || $REPLAY_DUMP ))
+    then
+        DATAPATH=$CAPTURE_BASE/runDump
+    else
+        DATAPATH=$CAPTURE_BASE
+    fi
 fi
 
 if (( $DUMP && ! $REPLAY_DUMP ))
