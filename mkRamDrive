@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Note - you will need to be root to run this!
+
+set -e
+
+if [[ ! -d "/mnt/ramdrive" ]]; then
+    mkdir /mnt/ramdrive
+fi
+
+mount -t tmpfs -o size=1G tmpfs /mnt/ramdrive
+
+capDir=/mnt/ramdrive/rtslam.data/captures
+mkdir -p ${capDir}/runDump
+
+if [[ -d /DevProj/AR/rt-slam.data/captures/runLive ]]; then
+    cfgDir=/DevProj/AR/rt-slam.data/captures/runLive
+else
+    cfgDir=/Developer/Projects/rtslam/jafar/captures/runLive
+fi
+
+cp ${cfgDir}/setup.cfg ${capDir}
+cp ${cfgDir}/estimation.cfg ${capDir}

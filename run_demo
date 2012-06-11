@@ -84,6 +84,9 @@ else
     if [[ -d "/mnt/ssd/AR/rt-slam.data/captures" ]]
     then
         CAPTURE_BASE=/mnt/ssd/AR/rt-slam.data/captures
+    elif [[ -d "/mnt/ramdrive/rtslam.data/captures" ]]
+    then
+        CAPTURE_BASE=/mnt/ramdrive/rtslam.data/captures
     else
         CAPTURE_BASE=$JAFAR_BASE/captures
     fi
