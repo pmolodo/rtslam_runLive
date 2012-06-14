@@ -31,6 +31,7 @@ LOG=1
 RENDERALL=0
 ROBOT=0
 VIEWS=1
+SHUTTER=2
 
 MODEL=
 #MODEL="@/cow.osg"
@@ -109,7 +110,7 @@ else
 fi
 
 # for luma branch
-cmd="$JAFAR_BUILD/modules/rtslam/demo_suite/$ARCH_DIR/demo_slam --replay=$REPLAY $DISP --robot=$ROBOT --pause=$PAUSE --dump=$DUMP --log=$LOG --render-all=$RENDERALL --data-path=$DATAPATH --config-setup=${SETUP_CFG} --config-estimation=${EST_CFG} --rand-seed=$RSEED --freq=$FREQ --num-views=$VIEWS --model=$MODEL"
+cmd="$JAFAR_BUILD/modules/rtslam/demo_suite/$ARCH_DIR/demo_slam --replay=$REPLAY $DISP --robot=$ROBOT --pause=$PAUSE --dump=$DUMP --log=$LOG --render-all=$RENDERALL --data-path=$DATAPATH --config-setup=${SETUP_CFG} --config-estimation=${EST_CFG} --rand-seed=$RSEED --freq=$FREQ --num-views=$VIEWS --model=$MODEL --shutter=$SHUTTER"
 # for patch branch
 #cmd="$JAFAR_BUILD/modules/rtslam/demo_suite/$ARCH_DIR/demo_slam --replay=$REPLAY $DISP --robot=$ROBOT --pause=$PAUSE --dump=$DUMP --log=$LOG --render-all=$RENDERALL --data-path=$DATAPATH --config-setup=${SETUP_CFG} --config-estimation=${EST_CFG} --rand-seed=$RSEED --freq=$FREQ"
 echo "$cmd"
