@@ -10,7 +10,8 @@ fi
 
 mount -t tmpfs -o size=1G tmpfs /mnt/ramdrive
 
-capDir=/mnt/ramdrive/rtslam.data/captures
+dataDir=/mnt/ramdrive/rtslam.data
+capDir=${dataDir}/captures
 mkdir -p ${capDir}/runDump
 
 if [[ -d /DevProj/AR/rt-slam.data/captures/runLive ]]; then
@@ -19,5 +20,9 @@ else
     cfgDir=/Developer/Projects/rtslam/jafar/captures/runLive
 fi
 
-cp ${cfgDir}/setup.cfg ${capDir}
-cp ${cfgDir}/estimation.cfg ${capDir}
+cp -r ${cfgDir} ${capDir}
+ln -s runLive/setup.cfg ${capDir}/setup.cfg
+ln -s runLive/estimation.cfg ${capDir}/estimation.cfg
+
+chown -R paulm ${dataDir}
+chgrp -R dev ${dataDir}
