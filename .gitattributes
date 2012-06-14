@@ -1,0 +1,4 @@
+.git*       text
+*.cfg       text
+run_demo    text
+mkRamDrive  text
