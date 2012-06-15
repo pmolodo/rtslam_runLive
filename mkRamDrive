@@ -20,7 +20,7 @@ else
     cfgDir=/Developer/Projects/rtslam/jafar/captures/runLive
 fi
 
-cp -r ${cfgDir} ${capDir}
+ln -s ${cfgDir} ${capDir}/runLive
 ln -s runLive/setup.cfg ${capDir}/setup.cfg
 ln -s runLive/estimation.cfg ${capDir}/estimation.cfg
 
