@@ -26,12 +26,13 @@ FREQ=100
 REPLAY=0
 REPLAY_DUMP=0
 PAUSE=1
-DUMP=0
+DUMP=1
 LOG=1
 RENDERALL=0
-ROBOT=0
+ROBOT=1
 VIEWS=1
-SHUTTER=2
+SHUTTER=0.004
+TRIGGER=0
 
 MODEL=
 #MODEL="@/cow.osg"
@@ -110,8 +111,13 @@ else
 fi
 
 # for luma branch
-cmd="$JAFAR_BUILD/modules/rtslam/demo_suite/$ARCH_DIR/demo_slam --replay=$REPLAY $DISP --robot=$ROBOT --pause=$PAUSE --dump=$DUMP --log=$LOG --render-all=$RENDERALL --data-path=$DATAPATH --config-setup=${SETUP_CFG} --config-estimation=${EST_CFG} --rand-seed=$RSEED --freq=$FREQ --num-views=$VIEWS --model=$MODEL --shutter=$SHUTTER"
+cmd="$JAFAR_BUILD/modules/rtslam/demo_suite/$ARCH_DIR/demo_slam --replay=$REPLAY $DISP --robot=$ROBOT --pause=$PAUSE --dump=$DUMP --log=$LOG --render-all=$RENDERALL --data-path=$DATAPATH --config-setup=${SETUP_CFG} --config-estimation=${EST_CFG} --rand-seed=$RSEED --freq=$FREQ --num-views=$VIEWS --model=$MODEL --trigger=$TRIGGER"
 # for patch branch
 #cmd="$JAFAR_BUILD/modules/rtslam/demo_suite/$ARCH_DIR/demo_slam --replay=$REPLAY $DISP --robot=$ROBOT --pause=$PAUSE --dump=$DUMP --log=$LOG --render-all=$RENDERALL --data-path=$DATAPATH --config-setup=${SETUP_CFG} --config-estimation=${EST_CFG} --rand-seed=$RSEED --freq=$FREQ"
+
+if [[ -n "$SHUTTER" ]]; then
+    cmd="${cmd} --shutter=$SHUTTER"
+fi
+
 echo "$cmd"
 eval "$cmd"
