@@ -122,13 +122,23 @@ if [[ -n "$SHUTTER" ]]; then
     cmd="${cmd} --shutter=$SHUTTER"
 fi
 
+trap 'echo; echo "Caught ctrl-c - quit out of demo_slam";' INT
 echo "$cmd"
 eval "$cmd"
+trap - INT
+
+echo
+
+echoCopy()
+{
+    echo cp "$@"
+    cp "$@"
+}
 
 if (( $DUMP && ! $REPLAY ))
 then
-    cp "${DATAPATH}/setup.cfg" "${DATAPATH}/setup.capture.cfg"
-    cp "${DATAPATH}/estimation.cfg" "${DATAPATH}/estimation.capture.cfg"
-    cp "${SCRIPT_DIR}/run_data" "${DATAPATH}"
-    cp "${SCRIPT_DIR}/makeZip" "${DATAPATH}"
+    echoCopy "${DATAPATH}/setup.cfg" "${DATAPATH}/setup.capture.cfg"
+    echoCopy "${DATAPATH}/estimation.cfg" "${DATAPATH}/estimation.capture.cfg"
+    echoCopy "${SCRIPT_DIR}/run_data" "${DATAPATH}"
+    echoCopy "${SCRIPT_DIR}/makeZip" "${DATAPATH}"
 fi
