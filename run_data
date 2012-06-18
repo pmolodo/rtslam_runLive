@@ -2,6 +2,11 @@
 THIS_FILE=$(python -c "import os; print os.path.normcase(os.path.normpath(os.path.realpath(os.path.abspath('''$0'''))))")
 THIS_DIR=$(dirname "$THIS_FILE")
 
+NUM_REPEATS=$1
+if [[ -z $NUM_REPEATS ]]; then
+    NUM_REPEATS=1
+fi
+
 if [[ -z $DEMO_SLAM ]]; then
     DEMO_SLAM=demo_slam
 fi
@@ -33,8 +38,6 @@ if [[ -z "$EST_CFG" ]]; then
 fi
 
 cmd=("$DEMO_SLAM" --replay=1  --robot=1 --pause=0 --dump=0 --log=1 --render-all=0 --disp-2d=1 --disp-3d=1 --data-path="$THIS_DIR" --config-setup="$SETUP_CFG" --config-estimation="$EST_CFG" --rand-seed=0 --freq=100)
-echo "${cmd[@]}"
-eval "${cmd[@]}"
 
 pyCmd='import os
 import sys
@@ -47,6 +50,12 @@ while(True):
     num += 1
 print path'
 
-replayLog=$(python -c "$pyCmd" "$THIS_DIR")
-echo "copying ${THIS_DIR}/rtslam.log to $replayLog"
-cp "${THIS_DIR}/rtslam.log" "$replayLog"
+for execNum in $(seq $NUM_REPEATS)
+do
+    echo "${cmd[@]}"
+    eval "${cmd[@]}"
+
+    replayLog=$(python -c "$pyCmd" "$THIS_DIR")
+    echo "copying ${THIS_DIR}/rtslam.log to $replayLog"
+    cp "${THIS_DIR}/rtslam.log" "$replayLog"
+done
