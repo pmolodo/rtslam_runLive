@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_FILE=$(python -c "import os; print os.path.normcase(os.path.normpath(os.path.realpath(os.path.abspath('''$0'''))))")
+SCRIPT_DIR=$(dirname "$SCRIPT_FILE")
+
 DISP=""
 DISP="--disp-2d"
 #DISP="--disp-2d --disp-3d"
@@ -54,10 +57,10 @@ fi
 
 export JAFAR_BASE=$RTSLAMBASE/jafar
 export JAFAR_DIR=$JAFAR_BASE/src
-thisDir=$(basename $(pwd))
-if [[ "$thisDir" == "debug" || "$thisDir" == "release" ]];
+currentDir=$(basename $(pwd))
+if [[ "$currentDir" == "debug" || "$currentDir" == "release" ]];
 then
-    export JAFAR_BUILD=$JAFAR_BASE/build/$thisDir
+    export JAFAR_BUILD=$JAFAR_BASE/build/$currentDir
 else
     export JAFAR_BUILD=$JAFAR_BASE/build/release
 fi
@@ -121,3 +124,11 @@ fi
 
 echo "$cmd"
 eval "$cmd"
+
+if (( $DUMP && ! $REPLAY ))
+then
+    cp "${DATA_PATH}/setup.cfg" "${DATA_PATH}/setup.capture.cfg"
+    cp "${DATA_PATH}/estimation.cfg" "${DATA_PATH}/estimation.capture.cfg"
+    cp "${SCRIPT_DIR}/run_data" "${DATA_PATH}"
+    cp "${SCRIPT_DIR}/makeZip" "${DATA_PATH}"
+fi
