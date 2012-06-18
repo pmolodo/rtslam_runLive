@@ -127,8 +127,8 @@ eval "$cmd"
 
 if (( $DUMP && ! $REPLAY ))
 then
-    cp "${DATA_PATH}/setup.cfg" "${DATA_PATH}/setup.capture.cfg"
-    cp "${DATA_PATH}/estimation.cfg" "${DATA_PATH}/estimation.capture.cfg"
-    cp "${SCRIPT_DIR}/run_data" "${DATA_PATH}"
-    cp "${SCRIPT_DIR}/makeZip" "${DATA_PATH}"
+    cp "${DATAPATH}/setup.cfg" "${DATAPATH}/setup.capture.cfg"
+    cp "${DATAPATH}/estimation.cfg" "${DATAPATH}/estimation.capture.cfg"
+    cp "${SCRIPT_DIR}/run_data" "${DATAPATH}"
+    cp "${SCRIPT_DIR}/makeZip" "${DATAPATH}"
 fi
