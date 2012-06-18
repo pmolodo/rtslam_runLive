@@ -52,6 +52,8 @@ print path'
 
 for execNum in $(seq $NUM_REPEATS)
 do
+    echo
+    echo "Doing run $execNum of $NUM_REPEATS"
     echo "${cmd[@]}"
     eval "${cmd[@]}"
 
