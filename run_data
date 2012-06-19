@@ -41,7 +41,7 @@ cmd=("$DEMO_SLAM" --replay=1  --robot=1 --pause=0 --dump=0 --log=1 --render-all=
 
 pyCmd='import os
 import sys
-pathTemplate = os.path.join(sys.argv[1], "rtslam.replay%02d.log")
+pathTemplate = os.path.join(sys.argv[1], "rtslam.replay%03d.log")
 num = 1
 while(True):
     path = pathTemplate % num
