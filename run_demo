@@ -18,8 +18,8 @@ DISP="--disp-2d"
 #RSEED=1333211841
 
 # out of range index error at frame 195
-RSEED=1334429335
-#RSEED=0
+#RSEED=1334429335
+RSEED=0
 
 FREQ=100
 
