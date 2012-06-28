@@ -1,0 +1,73 @@
+#!/bin/bash
+
+if [[ -z "$RTSLAM_BUILD_TYPE" ]]
+then
+    curDir=$(basename $(pwd))
+    curDirLower=$(echo "$curDir" | tr "[:upper:]" "[:lower:]")
+
+    if [[ "$curDirLower" == "releaseNoDebug" ]]
+    then
+        RTSLAM_BUILD_TYPE=releaseNoDebug
+    elif [[ "$curDirLower" == "release" ]]
+    then
+        RTSLAM_BUILD_TYPE=release
+    else
+        RTSLAM_BUILD_TYPE=debug
+    fi
+fi
+
+if [[ "$RTSLAM_BUILD_TYPE" == "releaseNoDebug" ]]
+then
+    buildName="Release"
+elif [[ "$RTSLAM_BUILD_TYPE" == "release" ]]
+then
+    buildName="RelWithDebInfo"
+else
+    buildName="Debug"
+fi
+
+if [[ "$(uname -s)" == "Linux" ]]
+then
+    if [[ -d "/Volumes/sv-dev01/devRepo/paulm" ]]
+    then
+        export RTSLAMBASE=/Volumes/sv-dev01/devRepo/paulm/rt-slam
+    else
+        export RTSLAMBASE=/DevProj/AR/rt-slam
+    fi
+else
+    export RTSLAMBASE=/Developer/Projects/rtslam
+fi
+
+export JAFAR_BASE=$RTSLAMBASE/jafar
+export JAFAR_DIR=$JAFAR_BASE/src
+BUILD_DIR=${JAFAR_BASE}/build/$RTSLAM_BUILD_TYPE
+
+cmakeArgs=( $JAFAR_DIR -DENABLE_TCL=OFF -DENABLE_RUBY=OFF -DPATH_TO_BOOST_SANDBOX=$RTSLAMBASE/boost-sandbox -DROBOTPKG_BASE=$RTSLAMBASE/openrobot -DCMAKE_CXX_FLAGS=-pthread -DCMAKE_BUILD_TYPE=$buildName )
+doClean=1
+if [[ "$1" == "--eclipse" ]];then
+    shift
+    cmakeArgs=("${cmakeArgs[@]}" -G"Eclipse CDT4 - Unix Makefiles")
+    doClean=0
+elif [[ "$1" == "--luma_farm" ]];then
+    shift
+    cmakeArgs=("${cmakeArgs[@]}" -DENABLE_VIAM=OFF -DENABLE_OPENSCENEGRAPH=OFF)
+elif [[ "$1" == "--luma_capture" ]];then
+    shift
+    cmakeArgs=("${cmakeArgs[@]}" -DENABLE_OPENSCENEGRAPH=OFF)
+fi
+
+if (( $doClean ))
+then
+    rm -rf ${BUILD_DIR}/modules
+    rm -rf ${BUILD_DIR}/include
+    rm -rf ${BUILD_DIR}/lib
+    rm -rf ${BUILD_DIR}/CMake*
+    rm -rf ${BUILD_DIR}/cmake_install.cmake
+    rm -rf ${BUILD_DIR}/CTestTestfile.cmake
+    rm -rf ${BUILD_DIR}/Makefile
+fi
+
+cmakeArgs=("${cmakeArgs[@]}" "$@")
+
+echo cmake "${cmakeArgs[@]}"
+cmake "${cmakeArgs[@]}"
