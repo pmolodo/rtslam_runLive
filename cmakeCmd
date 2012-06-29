@@ -5,21 +5,21 @@ then
     curDir=$(basename $(pwd))
     curDirLower=$(echo "$curDir" | tr "[:upper:]" "[:lower:]")
 
-    if [[ "$curDirLower" == "releaseNoDebug" ]]
-    then
-        RTSLAM_BUILD_TYPE=releaseNoDebug
-    elif [[ "$curDirLower" == "release" ]]
+    if [[ "$curDirLower" == "release" ]]
     then
         RTSLAM_BUILD_TYPE=release
+    elif [[ "$curDirLower" == "releasedbg" ]]
+    then
+        RTSLAM_BUILD_TYPE=releaseDbg
     else
         RTSLAM_BUILD_TYPE=debug
     fi
 fi
 
-if [[ "$RTSLAM_BUILD_TYPE" == "releaseNoDebug" ]]
+if [[ "$RTSLAM_BUILD_TYPE" == "release" ]]
 then
     buildName="Release"
-elif [[ "$RTSLAM_BUILD_TYPE" == "release" ]]
+elif [[ "$RTSLAM_BUILD_TYPE" == "releaseDbg" ]]
 then
     buildName="RelWithDebInfo"
 else
