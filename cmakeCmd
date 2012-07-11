@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ -z "$OS_ARCH" ]]
+then
+    OS_ARCH=$(uname)_$(uname -m)
+fi
+
 if [[ -z "$RTSLAM_BUILD_TYPE" ]]
 then
     curDir=$(basename $(pwd))
@@ -28,7 +33,10 @@ fi
 
 if [[ "$(uname -s)" == "Linux" ]]
 then
-    if [[ -d "/Volumes/sv-dev01/devRepo/paulm" ]]
+    if [[ -d "/mnt/ssd/AR/rt-slam" ]]
+    then
+        export RTSLAMBASE=/mnt/ssd/AR/rt-slam
+    elif [[ -d "/Volumes/sv-dev01/devRepo/paulm/rt-slam" ]]
     then
         export RTSLAMBASE=/Volumes/sv-dev01/devRepo/paulm/rt-slam
     else
@@ -40,7 +48,7 @@ fi
 
 export JAFAR_BASE=$RTSLAMBASE/jafar
 export JAFAR_DIR=$JAFAR_BASE/src
-BUILD_DIR=${JAFAR_BASE}/build/$RTSLAM_BUILD_TYPE
+BUILD_DIR=${JAFAR_BASE}/build/$OS_ARCH/$RTSLAM_BUILD_TYPE
 
 cmakeArgs=( $JAFAR_DIR -DENABLE_TCL=OFF -DENABLE_RUBY=OFF -DPATH_TO_BOOST_SANDBOX=$RTSLAMBASE/boost-sandbox -DROBOTPKG_BASE=$RTSLAMBASE/openrobot -DCMAKE_CXX_FLAGS=-pthread -DCMAKE_BUILD_TYPE=$buildName )
 doClean=1
