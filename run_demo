@@ -21,7 +21,7 @@ DISP="--disp-2d"
 #RSEED=1334429335
 RSEED=0
 
-FREQ=100
+FREQ=50
 
 # Random
 #RSEED=0
