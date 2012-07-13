@@ -2,7 +2,7 @@
 
 if [[ -z "$OS_ARCH" ]]
 then
-    OS_ARCH=$(uname)_$(uname -m)
+    OS_ARCH=$(uname)-$(uname -m)
 fi
 
 if [[ -z "$RTSLAM_BUILD_TYPE" ]]
