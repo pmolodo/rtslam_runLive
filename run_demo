@@ -6,19 +6,14 @@ SCRIPT_DIR=$(dirname "$SCRIPT_FILE")
 DISP=""
 DISP="--disp-2d"
 #DISP="--disp-2d --disp-3d"
-#DISP="--disp-2d --disp-osg"
+DISP="--disp-2d --disp-osg"
 #DISP="--disp-3d"
 #DISP="--disp-osg"
 #DISP="--disp-2d --disp-3d --disp-osg"
 
-# malloc error after frame 265, 282
-#RSEED=1333191916
+# Seg fault running run12 (in debug mode)
+#RSEED=1341234796
 
-# malloc error after frame 1486
-#RSEED=1333211841
-
-# out of range index error at frame 195
-#RSEED=1334429335
 RSEED=0
 
 FREQ=50

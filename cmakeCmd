@@ -66,6 +66,7 @@ fi
 
 if (( $doClean ))
 then
+    echo "cleaning cmake files from: ${BUILD_DIR}"
     rm -rf ${BUILD_DIR}/modules
     rm -rf ${BUILD_DIR}/include
     rm -rf ${BUILD_DIR}/lib
@@ -73,6 +74,8 @@ then
     rm -rf ${BUILD_DIR}/cmake_install.cmake
     rm -rf ${BUILD_DIR}/CTestTestfile.cmake
     rm -rf ${BUILD_DIR}/Makefile
+    echo "... done"
+    echo
 fi
 
 cmakeArgs=("${cmakeArgs[@]}" "$@")
