@@ -37,6 +37,11 @@ MODEL=
 #MODEL="@/cow.osg"
 #MODEL="/DevProj/AR/rt-slam/jafar/src/modules/rtslam/data/models/MTi.osg"
 
+if [[ -z "$OS_ARCH" ]]
+then
+    OS_ARCH=$(uname)-$(uname -m)
+fi
+
 if [[ "$(uname -s)" == "Linux" ]]
 then
     ARCH_DIR=x86_64-linux-gnu
@@ -56,9 +61,9 @@ export JAFAR_DIR=$JAFAR_BASE/src
 currentDir=$(basename $(pwd))
 if [[ "$currentDir" == "debug" || "$currentDir" == "release" ]];
 then
-    export JAFAR_BUILD=$JAFAR_BASE/build/$currentDir
+    export JAFAR_BUILD=$JAFAR_BASE/build/$OS_ARCH/$currentDir
 else
-    export JAFAR_BUILD=$JAFAR_BASE/build/release
+    export JAFAR_BUILD=$JAFAR_BASE/build/$OS_ARCH/release
 fi
 
 export OSG_WINDOW="0 0 640 480"
