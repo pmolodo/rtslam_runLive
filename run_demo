@@ -49,9 +49,12 @@ then
     if [[ -d "/mnt/ssd/AR/rt-slam" ]]
     then
         export RTSLAMBASE=/mnt/ssd/AR/rt-slam
-    elif [[ -d "/Volumes/sv-dev01/devRepo/paulm/rt-slam" ]]
+    elif [[ -n "$REPO_PATH" && -d "$REPO_PATH/rt-slam" ]]
     then
-        export RTSLAMBASE=/Volumes/sv-dev01/devRepo/paulm/rt-slam
+        export RTSLAMBASE=$REPO_PATH/rt-slam
+    elif [[ -d "/Volumes/sv-dev01/devRepo/$USER/rt-slam" ]]
+    then
+        export RTSLAMBASE=/Volumes/sv-dev01/devRepo/$USER/rt-slam
     else
         export RTSLAMBASE=/DevProj/AR/rt-slam
     fi
