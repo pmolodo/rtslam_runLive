@@ -46,7 +46,10 @@ fi
 if [[ "$(uname -s)" == "Linux" ]]
 then
     ARCH_DIR=x86_64-linux-gnu
-    if [[ -d "/Volumes/sv-dev01/devRepo/paulm" ]]
+    if [[ -d "/mnt/ssd/AR/rt-slam" ]]
+    then
+        export RTSLAMBASE=/mnt/ssd/AR/rt-slam
+    elif [[ -d "/Volumes/sv-dev01/devRepo/paulm/rt-slam" ]]
     then
         export RTSLAMBASE=/Volumes/sv-dev01/devRepo/paulm/rt-slam
     else
@@ -88,12 +91,12 @@ then
 else
     PAUSE=0
 
-    if [[ -d "/mnt/ssd/AR/rt-slam.data/captures" ]]
-    then
-        CAPTURE_BASE=/mnt/ssd/AR/rt-slam.data/captures
-    elif [[ -d "/mnt/ramdrive/rtslam.data/captures" ]]
+    if [[ -d "/mnt/ramdrive/rtslam.data/captures" ]]
     then
         CAPTURE_BASE=/mnt/ramdrive/rtslam.data/captures
+    elif [[ -d "/mnt/ssd/AR/rt-slam.data/captures" ]]
+    then
+        CAPTURE_BASE=/mnt/ssd/AR/rt-slam.data/captures
     else
         CAPTURE_BASE=$JAFAR_BASE/captures
     fi
